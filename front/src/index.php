@@ -1,10 +1,10 @@
 <?php
-$docker_localhost = "docker.for.mac.localhost";
+$docker_localhost = "proxy:8080";
 
 $backends = array( 
-"http://$docker_localhost:9090/first/page", 
-"http://$docker_localhost:9090/gotest/you",
-"http://$docker_localhost:9090/second/page");
+"http://$docker_localhost/first/", 
+"http://$docker_localhost/gotest/satiaisia",
+"http://$docker_localhost/second/page");
 
 if(!isset($_GET["index"]) || $_GET["index"] === "") {
     header( 'Location: /?index=0');
