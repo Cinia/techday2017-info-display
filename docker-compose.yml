@@ -1,0 +1,19 @@
+version: '3'
+services:
+  # Proxy container which handles passing request to the actual services
+  #    the container to which request is passed is chosen with the first part of request url
+  #    for example: "http://localhost:8080/first/page" is proxied to "http://first:80/page"
+  proxy:
+    # image to start, image must be available in docker hub or built locally
+    image: reap/proxy-for-docker-containers
+    ports:
+     - "8080:8080"
+  first:
+    # image to build
+    build: test-upstream-container/.
+    environment:
+     - CONTAINER_ID=Kontti-1
+  second:
+    build: test-upstream-container/.
+    environment:
+     - CONTAINER_ID=Kontti-2
