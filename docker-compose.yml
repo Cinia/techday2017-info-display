@@ -7,7 +7,7 @@ services:
     # image to start, image must be available in docker hub or built locally
     image: reap/proxy-for-docker-containers
     ports:
-     - "8080:8080"
+     - "9090:8080"
   first:
     # image to build
     build: test-upstream-container/.
@@ -17,3 +17,6 @@ services:
     build: test-upstream-container/.
     environment:
      - CONTAINER_ID=Kontti-2
+  gotest:
+    build: golang-example/.
+    
