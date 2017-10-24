@@ -17,11 +17,9 @@ services:
     build: backend/test-upstream-container/.
     environment:
      - CONTAINER_ID=Kontti-1
-  second:
-    build: backend/test-upstream-container/.
+  boardgames:
+    build: backend/boardgame-club-connector/.
     environment:
      - CONTAINER_ID=Kontti-2
   gotest:
     build: backend/golang-example/.
-  
-    

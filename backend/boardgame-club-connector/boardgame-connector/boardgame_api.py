@@ -1,23 +1,23 @@
-from .bgg.bgg_data_container import BggDataContainer
+from .bgg_plays import BggPlays
 
 from flask import Blueprint, render_template
 import logging
 
 api = Blueprint('boargame_api', __name__, template_folder='templates')
-container = BggDataContainer()
+data = BggPlays()
 
 
 def fetch_data():
     """ Call to fetch data to the data container.
     """
     logging.info("Fetching data from BGG")
-    container.fetch_data()
+    data.fetch_data()
     logging.info("Data fetched")
 
 
 @api.route('/plays/latestgames')
 def last_played_games():
-    games = container.plays.latest_played_games()
+    games = data.latest_played_games()
 
     logging.debug("latest games played: {}".format(games))
 
@@ -26,3 +26,17 @@ def last_played_games():
 
     return '{{ "title": "{0}", "content": "{1}" }}'.format(title, html)
 
+
+@api.route('/plays/statistics')
+def statistics():
+    coop_statistics = data.cooperative_game_statistics()
+
+    logging.debug("coop statistics: {}".format(coop_statistics))
+
+    most_played = data.most_played_game()
+
+    logging.debug("most played game: {}".format(most_played))
+
+    html = render_template('statistics.html', coops=coop_statistics, most_played=most_played).replace('"', '\\"')
+    title = 'cLautapelikerho statistics'
+    return '{{ "title": "{0}", "content": "{1}" }}'.format(title, html)
