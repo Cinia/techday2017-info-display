@@ -21,6 +21,10 @@ services:
     build: backend/test-upstream-container/.
     environment:
      - CONTAINER_ID=Kontti-2
+  third:
+    build: backend/test-upstream-container/.
+    environment:
+     - CONTAINER_ID=Kontti-3
   gotest:
     build: backend/golang-example/.
   
