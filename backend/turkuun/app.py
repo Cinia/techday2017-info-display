@@ -36,7 +36,7 @@ def test():
             nextTimeString = "-"
             
         lastFetch = time.time()
-        view = "Seuraava juna Turkuun lähtee: " + nextTimeString
+        view = "Next train at: " + nextTimeString
         view = view.encode()
         try:
             overWriteFile("cache", view)
@@ -47,7 +47,8 @@ def test():
             pass
     else :
         view = readFileStr("cache")
-    return view
+    jsonstring = '{"title": "if it is time to go", "content": "' + view.decode() + '"}'
+    return jsonstring
 
 def deleteContent(fd):
     try:
