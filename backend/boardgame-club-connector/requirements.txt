@@ -2,3 +2,4 @@ flask
 requests
 lxml
 jinja2
+schedule
