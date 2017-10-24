@@ -12,7 +12,7 @@ services:
     image: reap/proxy-for-docker-containers
     ports:
      - "9090:8080"
-<<<<<<< HEAD
+
   first:
     # image to build
     build: backend/test-upstream-container/.
@@ -30,7 +30,6 @@ services:
     build: backend/golang-example/.
   
     
-=======
   # first:
   #   # image to build
   #   build: backend/test-upstream-container/.
@@ -56,4 +55,3 @@ services:
     build: backend/rss/.
   turkuun:
     build: backend/turkuun/.
->>>>>>> master
