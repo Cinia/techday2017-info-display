@@ -17,9 +17,17 @@ services:
     build: backend/test-upstream-container/.
     environment:
      - CONTAINER_ID=Kontti-1
-  boardgames:
-    build: backend/boardgame-club-connector/.
+  second:
+    build: backend/test-upstream-container/.
     environment:
      - CONTAINER_ID=Kontti-2
+  abc:
+    build: backend/abc/.
+    ports:
+      - "8500:80"
   gotest:
     build: backend/golang-example/.
+  antell:
+    build: backend/antell/.
+  boardgames:
+    build: backend/boardgame-club-connector
