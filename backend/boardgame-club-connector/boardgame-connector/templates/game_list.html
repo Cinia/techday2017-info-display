@@ -1,0 +1,9 @@
+<ul>
+    {% for game in games %}
+    <li>
+        <img src="{{ game.thumbnail }}" />
+        <span class="game-name">{{ game.name }}</span>
+    </li>
+    {% endfor %}
+</ul>
+
