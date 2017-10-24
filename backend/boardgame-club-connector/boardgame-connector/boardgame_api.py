@@ -10,9 +10,14 @@ data = BggPlays()
 def fetch_data():
     """ Call to fetch data to the data container.
     """
-    logging.info("Fetching data from BGG")
     data.fetch_data()
-    logging.info("Data fetched")
+    data.start_updating()
+
+
+def stop_updating():
+    """ Stop the scheduler thread that is updating plays data.
+    """
+    data.stop_updating.set()
 
 
 @api.route('/plays/latestgames')

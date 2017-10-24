@@ -1,4 +1,4 @@
-from .boardgame_api import fetch_data
+from .boardgame_api import fetch_data, stop_updating
 from .boardgame_api import api
 
 import argparse
@@ -7,6 +7,7 @@ from flask import Flask
 
 app = Flask(__name__)
 app.register_blueprint(api)
+
 
 @app.route('/')
 def get_root():
@@ -24,4 +25,6 @@ def run():
     fetch_data()
 
     app.run('0.0.0.0', args.port)
+
+    stop_updating()
 
