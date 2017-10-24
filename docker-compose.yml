@@ -29,4 +29,5 @@ services:
     build: backend/golang-example/.
   antell:
     build: backend/antell/.
-    
+  boardgames:
+    build: backend/boardgame-club-connector

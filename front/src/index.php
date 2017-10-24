@@ -4,6 +4,8 @@ $docker_localhost = "proxy:8080";
 $backends = array( 
 "http://$docker_localhost/first/", 
 "http://$docker_localhost/gotest/satiaisia",
+"http://$docker_localhost/boardgames/plays/latestgames",
+"http://$docker_localhost/boardgames/plays/statistics",
 "http://$docker_localhost/antell/",
 "http://$docker_localhost/second/page",
 "http://$docker_localhost/abc/");
