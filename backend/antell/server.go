@@ -29,7 +29,7 @@ func AntellLunchToday(w http.ResponseWriter, r *http.Request) {
 			foodList := item.Find("tr:not(:first-child) > td:nth-child(2)")
 			foodList.Each(func(index int, foodItem *goquery.Selection) {
 				foodItem.Children().Remove()
-				jsonResponse += "'" + strings.TrimSpace(foodItem.Text()) + "'"
+				jsonResponse += "\"" + strings.TrimSpace(foodItem.Text()) + "\""
 				if (index < foodList.Size()-1) {
 					jsonResponse += ","
 				}

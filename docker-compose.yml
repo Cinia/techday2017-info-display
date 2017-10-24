@@ -12,22 +12,26 @@ services:
     image: reap/proxy-for-docker-containers
     ports:
      - "9090:8080"
-  first:
-    # image to build
-    build: backend/test-upstream-container/.
-    environment:
-     - CONTAINER_ID=Kontti-1
-  second:
-    build: backend/test-upstream-container/.
-    environment:
-     - CONTAINER_ID=Kontti-2
+  # first:
+  #   # image to build
+  #   build: backend/test-upstream-container/.
+  #   environment:
+  #    - CONTAINER_ID=Kontti-1
+  # second:
+  #   build: backend/test-upstream-container/.
+  #   environment:
+  #    - CONTAINER_ID=Kontti-2
+  # gotest:
+  #   build: backend/golang-example/.
   abc:
     build: backend/abc/.
     ports:
       - "8500:80"
-  gotest:
-    build: backend/golang-example/.
   antell:
     build: backend/antell/.
   boardgames:
     build: backend/boardgame-club-connector
+  now-listening:
+    build: backend/now-listening/.
+  rss:
+    build: backend/rss/.
