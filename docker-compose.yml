@@ -31,3 +31,5 @@ services:
     build: backend/antell/.
   boardgames:
     build: backend/boardgame-club-connector
+  now-listening:
+    build: backend/now-listening/.
