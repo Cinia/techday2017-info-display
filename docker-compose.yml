@@ -23,5 +23,5 @@ services:
      - CONTAINER_ID=Kontti-2
   gotest:
     build: backend/golang-example/.
-  
-    
+  now-listening:
+    build: backend/now-listening/.
