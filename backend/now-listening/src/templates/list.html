@@ -1,11 +1,26 @@
 <style>
-span {
+div.user > span {
   min-width: 100px;
   margin-right: 20px;
   display: inline-block;
+  line-height: normal;
+  height: 100%;
+  vertical-align: middle;
 }
 
-.track, .artist{
+div.user {
+  line-height: 50px;
+  height: 50px;
+  margin: 2px;
+  display: inline-block;
+  min-width: 800px;
+}
+
+div.container > div:nth-of-type(odd) {
+    background: #e9e9f3;
+}
+
+div.user > .track, div.user > .artist{
   min-width: 200px;
 }
 
@@ -14,4 +29,7 @@ img {
   height: 50px;
 }
 </style>
+<h1>Recently listened by Cinia Jyväskylä</h1>
+<div class="container">
 {{listing |safe}}
+</div>
