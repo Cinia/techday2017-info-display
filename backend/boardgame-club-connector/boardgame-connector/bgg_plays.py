@@ -2,8 +2,11 @@ from .bgg_api import BASE_URL, USERNAME
 
 from itertools import groupby
 from lxml import etree
+from threading import Thread, Event
 import logging
 import requests
+import schedule
+import time
 
 # Text in a BGG play comment that equates to a cooperative game win
 WON_TEXT = "Won"
@@ -20,26 +23,17 @@ class BggPlays:
         """ Create a new Plays instance. Use `fetch_data` to get
         plays data from the BGG API.
 
-        Then use the `plays` attribute to access plays.
+        Fetched data is saved into memory (`self.data`).
         """
         self.data = None
-
-    def _get_thumbnail(self, game_id: int) -> str:
-        """ Return the thumbnail URL for the given game.
-
-        :param game_id: id of the game in BGG to get thumbnail for
-        :return: URL of the thumbnail
-        """
-        xml_root = BggPlays.request_data('thing', {'id': game_id})
-        for node in xml_root[0]:
-            if node.tag == 'thumbnail':
-                return node.text
+        self.stop_updating = Event()
 
     def fetch_data(self):
         """ Fetch and parse plays data from BGG API.
 
         :return a list of `play` objects. Each play has a `length`, `game_name`, an `game_id` and a `comment`
         """
+        logging.info("Fetching data from the BGG API")
         uri = 'plays'
         params = {'username': USERNAME}
         xml_root = BggPlays.request_data(uri, params)
@@ -62,6 +56,15 @@ class BggPlays:
             plays.append(play)
 
         self.data = plays
+        logging.info("Data fetched")
+
+    def start_updating(self):
+        """ Start a job that updates the plays data contained by polling the BGG API every
+        midnight (so data updates once per day).
+        """
+        schedule.every().day.at('00:00').do(self.fetch_data)
+        thread = BggPlaysSchedulerThread(self.stop_updating)
+        thread.start()
 
     def latest_played_games(self) -> list:
         """ Get the names of games last played as a list.
@@ -151,3 +154,27 @@ class BggPlays:
 
         data = etree.fromstring(response.content)
         return data
+
+    @staticmethod
+    def _get_thumbnail(game_id: int) -> str:
+        """ Return the thumbnail URL for the given game.
+
+        :param game_id: id of the game in BGG to get thumbnail for
+        :return: URL of the thumbnail
+        """
+        xml_root = BggPlays.request_data('thing', {'id': game_id})
+        for node in xml_root[0]:
+            if node.tag == 'thumbnail':
+                return node.text
+
+
+class BggPlaysSchedulerThread(Thread):
+    def __init__(self, stopFlag):
+        super().__init__()
+        self.stopped = stopFlag
+        self.daemon = True
+
+    def run(self):
+        while not self.stopped.wait(5):
+            logging.debug("Scheduler pending")
+            schedule.run_pending()
