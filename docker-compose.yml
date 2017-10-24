@@ -27,5 +27,6 @@ services:
       - "8500:80"
   gotest:
     build: backend/golang-example/.
-  
+  antell:
+    build: backend/antell/.
     
