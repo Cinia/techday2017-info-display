@@ -6,7 +6,8 @@ $backends = array(
 "http://$docker_localhost/boardgames/plays/statistics",
 "http://$docker_localhost/antell/",
 "http://$docker_localhost/abc/",
-"http://$docker_localhost/now-listening/");
+"http://$docker_localhost/now-listening/",
+"http://$docker_localhost/rss/");
 
 if(!isset($_GET["index"]) || $_GET["index"] === "") {
     header( 'Location: /?index=0');

@@ -33,3 +33,5 @@ services:
     build: backend/boardgame-club-connector
   now-listening:
     build: backend/now-listening/.
+  rss:
+    build: backend/rss/.
