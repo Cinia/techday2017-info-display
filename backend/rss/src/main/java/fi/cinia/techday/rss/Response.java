@@ -1,11 +1,11 @@
 package fi.cinia.techday.rss;
 
-public class Result {
+public class Response {
 
 	private final String content;
 	private final String title;
 
-	public Result(String title, String content) {
+	public Response(String title, String content) {
 		this.title = title;
 		this.content = content;
 	}

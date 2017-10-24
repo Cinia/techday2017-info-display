@@ -19,14 +19,14 @@ public class Application {
 	}
 
 	@RequestMapping("/")
-	public @ResponseBody Result home() {
+	public @ResponseBody Response home() {
 		try {
 			SyndFeed feed = Reader.read("https://bbs.io-tech.fi/forums/io-tech-fi-uutiset.67/index.rss");
 			List<Entry> entries = Converter.convert(feed.getEntries());
 			String content = Formatter.format(entries);
-			return new Result("IO-TECH RSS", content);
+			return new Response("IO-TECH RSS", content);
 		} catch (Exception e) {
-			return new Result("IO-TECH RSS FAILURE", Formatter.format(e));
+			return new Response("IO-TECH RSS FAILURE", Formatter.format(e));
 		}
 	}
 }
