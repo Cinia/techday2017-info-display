@@ -16,19 +16,37 @@ if(!isset($_GET["index"]) || $_GET["index"] === "") {
       $nextindex = 0;
   }
 }
+// using file() function to get content
+$content=file_get_contents($backends[$_GET["index"]]);
+
+// Remove control characters which make JSON parser fail.
+$regFrom = array("/\n/", "/\t/");
+$regTo = array("", "    ");
+$content = preg_replace($regFrom, $regTo, $content);
+// Convert string to JSON object
+$contentAsJson = json_decode($content);
 ?>
 <html>
 <head>
 <meta http-equiv="refresh" content="10;URL='?index=<?php echo $nextindex ?>'">
+<title><?=$contentAsJson->title;?></title>
 </head>
     <body>
 <?php
-// using file() function to get content
-$lines_array=file($backends[$_GET["index"]]);
-// turn array into one variable
-$lines_string=implode('',$lines_array);
-//output, you can also save it locally on the server
-echo $lines_string;
+
+if ($contentAsJson == null) {
+    echo "<h1>Error parsing JSON</h1>";
+    echo "<pre>";
+    print_r($content);
+    var_dump($contentAsJson);
+    echo "</pre>";
+} else {
+    echo $contentAsJson->content;
+}
+echo "<!--";
+print_r($content);
+var_dump($contentAsJson);
+echo "-->";
 ?>
 </body>
 </html>
