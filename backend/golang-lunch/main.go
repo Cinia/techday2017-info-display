@@ -13,10 +13,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
     jsonValue, _ := json.Marshal(jsonData)
     response, err := http.Post("http://airiot.fi:19999/rest/lunch_request/", "application/json", bytes.NewBuffer(jsonValue))
     if err != nil {
-    	fmt.Fprintf(w, "{\"title\": \"%s\", \"content\": \"Hi there, I love %s!\"}", "ERROR", err)
+    	fmt.Fprintf(w, "{\"title\": \"%s\", \"content\": \"%s!\"}", "ERROR", err)
     } else {
         data, _ := ioutil.ReadAll(response.Body)
-        fmt.Fprintf(w, "{\"title\": \"%s\", \"content\": \"Hi there, I love %s!\"}", "Lunch",  string(data))
+        fmt.Fprintf(w, "{\"title\": \"%s\", \"content\": \"%s!\"}", "Lunch",  string(data))
     }
 }
 
