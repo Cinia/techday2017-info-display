@@ -7,7 +7,7 @@ $backends = array(
 "http://$docker_localhost/antell/",
 "http://$docker_localhost/abc/",
 "http://$docker_localhost/now-listening/",
-"http://$docker_localhost/rss/",
+"http://$docker_localhost/rss/?count=5",
 "http://$docker_localhost/turkuun/");
 
 if(!isset($_GET["index"]) || $_GET["index"] === "") {
