@@ -20,7 +20,7 @@ public final class Formatter {
     public String format(Entry entry) {
         String date = entry.getPublished().isPresent() ? DATEFORMAT.format(entry.getPublished().get()) : "";
         String title = entry.getTitle().orElse("");
-        String contents = formatContents(entry.getContents());
+        String contents = entry.getDescription().orElse(formatContents(entry.getContents()));
 
         return "<li><strong>" + date + " " + title + "</strong>" + contents + "</li>";
     }
