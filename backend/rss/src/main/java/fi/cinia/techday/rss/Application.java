@@ -31,7 +31,7 @@ public class Application {
     @RequestMapping("/")
     public @ResponseBody Response home() {
         try {
-            SyndFeed syndFeed = reader.read("https://bbs.io-tech.fi/forums/io-tech-fi-uutiset.67/index.rss");
+            SyndFeed syndFeed = reader.read("https://www.io-tech.fi/feed/");
             Feed feed = converter.convert(syndFeed);
             String content = formatter.format(feed.getEntries());
             return new Response(feed.getTitle().orElse("RSS FEED"), content);
