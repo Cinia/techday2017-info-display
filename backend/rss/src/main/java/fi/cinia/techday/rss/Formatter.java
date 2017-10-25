@@ -22,7 +22,7 @@ public final class Formatter {
         String title = entry.getTitle().orElse("");
         String contents = entry.getDescription().orElse(formatContents(entry.getContents()));
 
-        return "<li><strong>" + date + " " + title + "</strong>" + contents + "</li>";
+        return "<li><h2><small>" + date + "</small> " + title + "</h2>" + contents + "</li>";
     }
 
     public String format(Exception e) {
@@ -32,15 +32,24 @@ public final class Formatter {
         return sw.toString();
     }
 
-    public String format(List<Entry> entries) {
-        return "<ul>" + entries.stream().map(this::format).collect(Collectors.joining()) + "</ul>";
+    public String format(Feed feed) {
+        String result = feed.getTitle().orElse("").trim();
+        if (!result.isEmpty()) {
+            result = "<h1>" + result + "</h1>";
+        }
+        if (feed.getEntries().isEmpty()) {
+            result += "Nothing to show..";
+        } else {
+            result += "<ul>" + feed.getEntries().stream().map(this::format).collect(Collectors.joining()) + "</ul>";
+        }
+        return result;
     }
 
     private String formatContents(List<String> contents) {
         if (contents.isEmpty()) {
             return "";
         }
-        return contents.size() == 1 ? "<br>" + contents.get(0)
+        return contents.size() == 1 ? contents.get(0)
                 : "<ul><li>" + String.join("</li><li>", contents) + "</li></ul>";
     }
 }
