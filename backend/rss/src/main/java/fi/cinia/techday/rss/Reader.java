@@ -10,13 +10,13 @@ import com.rometools.rome.io.XmlReader;
 
 public final class Reader {
 
-	public static SyndFeed read(String path) throws IOException, IllegalArgumentException, FeedException {
-		URL feedUrl = new URL("https://bbs.io-tech.fi/forums/io-tech-fi-uutiset.67/index.rss");
-		XmlReader reader = new XmlReader(feedUrl);
-		return new SyndFeedInput().build(reader);
-	}
+    public static SyndFeed read(String path) throws IOException, IllegalArgumentException, FeedException {
+        URL feedUrl = new URL(path);
+        XmlReader reader = new XmlReader(feedUrl);
+        return new SyndFeedInput().build(reader);
+    }
 
-	private Reader() {
-		throw new AssertionError("Static class");
-	}
+    private Reader() {
+        throw new AssertionError("Static class");
+    }
 }
