@@ -1,0 +1,21 @@
+<style>
+    #boardgame-list ul {
+        list-style-type: none;
+    }
+
+    #boardgame-list li {
+        float: left;
+        margin: 10px;
+    }
+</style>
+<div id="boardgame-list">
+    <h2>cLautapelikerho recent plays</h2>
+    <ul>
+        {% for game in games %}
+        <li>
+            <img src="{{ game.thumbnail }}" />
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
