@@ -33,7 +33,7 @@ public class Application {
         try {
             SyndFeed syndFeed = reader.read("https://www.io-tech.fi/feed/");
             Feed feed = converter.convert(syndFeed);
-            String content = formatter.format(feed.getEntries());
+            String content = formatter.format(feed);
             return new Response(feed.getTitle().orElse("RSS FEED"), content);
         } catch (Exception e) {
             return new Response("RSS FEED FAILURE", formatter.format(e));
