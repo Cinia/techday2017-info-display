@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 import com.rometools.rome.feed.synd.SyndContent;
@@ -21,19 +20,23 @@ public final class Converter {
     }
 
     public Entry convert(SyndEntry entry) {
-        String title = entry.getTitle();
-        String description = entry.getDescription() == null ? null : entry.getDescription().getValue();
+        String title = stripHtml(entry.getTitle());
+        String description = entry.getDescription() == null ? null : stripHtml(entry.getDescription().getValue());
         Date date = entry.getPublishedDate();
         List<String> contents = entry.getContents().stream().map(SyndContent::getValue).filter(Objects::nonNull)
-                .map(Jsoup::parse).map(Document::text).collect(Collectors.toList());
+                .map(this::stripHtml).collect(Collectors.toList());
 
         return new Entry.Builder().published(date).title(title).description(description).contents(contents).build();
     }
 
+    private String stripHtml(String html) {
+        return html == null ? null : Jsoup.parse(html).text();
+    }
+
     public Feed convert(SyndFeed syndFeed) {
         Date date = syndFeed.getPublishedDate();
-        String title = syndFeed.getTitle();
-        String description = syndFeed.getDescription();
+        String title = stripHtml(syndFeed.getTitle());
+        String description = stripHtml(syndFeed.getDescription());
         List<Entry> entries = convert(syndFeed.getEntries());
 
         return new Feed.Builder().published(date).title(title).description(description).entries(entries).build();
