@@ -10,7 +10,8 @@ $backends = array(
 "http://$docker_localhost/abc/",
 "http://$docker_localhost/now-listening/",
 "http://$docker_localhost/rss/",
-"http://$docker_localhost/turkuun/");
+"http://$docker_localhost/turkuun/",
+"http://$docker_localhost/deadline/");
 
 if(!isset($_GET["index"]) || $_GET["index"] === "") {
     header( 'Location: /?index=0');
