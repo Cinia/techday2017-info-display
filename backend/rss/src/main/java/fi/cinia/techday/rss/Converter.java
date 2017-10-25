@@ -29,10 +29,6 @@ public final class Converter {
         return new Entry.Builder().published(date).title(title).description(description).contents(contents).build();
     }
 
-    private String stripHtml(String html) {
-        return html == null ? null : Jsoup.parse(html).text();
-    }
-
     public Feed convert(SyndFeed syndFeed) {
         Date date = syndFeed.getPublishedDate();
         String title = stripHtml(syndFeed.getTitle());
@@ -40,5 +36,9 @@ public final class Converter {
         List<Entry> entries = convert(syndFeed.getEntries());
 
         return new Feed.Builder().published(date).title(title).description(description).entries(entries).build();
+    }
+
+    private String stripHtml(String html) {
+        return html == null ? null : Jsoup.parse(html).text();
     }
 }
