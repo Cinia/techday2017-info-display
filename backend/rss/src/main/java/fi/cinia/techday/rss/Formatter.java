@@ -49,7 +49,6 @@ public final class Formatter {
         if (contents.isEmpty()) {
             return "";
         }
-        return contents.size() == 1 ? contents.get(0)
-                : "<ul><li>" + String.join("</li><li>", contents) + "</li></ul>";
+        return contents.size() == 1 ? contents.get(0) : "<ul><li>" + String.join("</li><li>", contents) + "</li></ul>";
     }
 }
