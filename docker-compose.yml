@@ -28,9 +28,3 @@ services:
     build: backend/rss/.
   turkuun:
     build: backend/turkuun/.
-  deadline:
-    build: backend/deadline_counter/.
-    environment:
-     - EVENTNAME=Star Wars Last Jedi premier
-     - DEADLINE=2017-12-13 14:00 UTC
-     
