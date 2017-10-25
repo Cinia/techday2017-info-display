@@ -23,5 +23,8 @@ services:
      - CONTAINER_ID=Kontti-2
   gotest:
     build: backend/golang-example/.
-  
-    
+  deadline:
+    build: backend/deadline_counter/.
+    environment:
+     - EVENTNAME=Star Wars Last Jedi premier
+     - DEADLINE=2017-12-13 14:00 UTC
