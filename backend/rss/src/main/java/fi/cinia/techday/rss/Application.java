@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,9 +30,10 @@ public class Application {
     }
 
     @RequestMapping("/")
-    public @ResponseBody Response home() {
+    public @ResponseBody Response home(@RequestParam(value = "count", defaultValue = "-1") int count) {
         try {
-            SyndFeed syndFeed = reader.read("https://www.io-tech.fi/feed/");
+            String path = "https://www.io-tech.fi/feed/";
+            SyndFeed syndFeed = count < 0 ? reader.read(path) : reader.read(path, count);
             Feed feed = converter.convert(syndFeed);
             String content = formatter.format(feed);
             return new Response(feed.getTitle().orElse("RSS FEED"), content);
