@@ -2,6 +2,8 @@
 $docker_localhost = "proxy:8080";
 
 $backends = array(
+"http://$docker_localhost/lunch/ylistö",
+"http://$docker_localhost/lunch/hox",
 "http://$docker_localhost/boardgames/plays/latestgames",
 "http://$docker_localhost/boardgames/plays/statistics",
 "http://$docker_localhost/antell/",

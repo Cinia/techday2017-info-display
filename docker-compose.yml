@@ -28,6 +28,8 @@ services:
      - CONTAINER_ID=Kontti-3
   gotest:
     build: backend/golang-example/.
+  lunch:
+    build: backend/golang-lunch/.
   
     
   # first:
