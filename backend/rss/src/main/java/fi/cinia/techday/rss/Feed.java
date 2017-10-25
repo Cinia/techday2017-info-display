@@ -7,26 +7,26 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-public final class Entry {
+public final class Feed {
 
     public static class Builder {
 
-        private List<String> contents;
         private String description;
+        private List<Entry> entries;
         private Instant published;
         private String title;
 
-        public Entry build() {
-            return new Entry(published, title, description, contents);
-        }
-
-        public Builder contents(List<String> contents) {
-            this.contents = contents;
-            return this;
+        public Feed build() {
+            return new Feed(published, title, description, entries);
         }
 
         public Builder description(String description) {
             this.description = description;
+            return this;
+        }
+
+        public Builder entries(List<Entry> entries) {
+            this.entries = entries;
             return this;
         }
 
@@ -46,24 +46,24 @@ public final class Entry {
         }
     }
 
-    private final List<String> contents;
     private final Optional<String> description;
+    private final List<Entry> entries;
     private final Optional<Instant> published;
     private final Optional<String> title;
 
-    private Entry(Instant published, String title, String description, List<String> contents) {
+    private Feed(Instant published, String title, String description, List<Entry> entries) {
+        this.description = Optional.ofNullable(description);
+        this.entries = Collections.unmodifiableList(entries == null ? new ArrayList<>() : entries);
         this.published = Optional.ofNullable(published);
         this.title = Optional.ofNullable(title);
-        this.description = Optional.ofNullable(description);
-        this.contents = Collections.unmodifiableList(contents == null ? new ArrayList<>() : contents);
-    }
-
-    public List<String> getContents() {
-        return contents;
     }
 
     public Optional<String> getDescription() {
         return description;
+    }
+
+    public List<Entry> getEntries() {
+        return entries;
     }
 
     public Optional<Instant> getPublished() {
